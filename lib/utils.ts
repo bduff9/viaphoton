@@ -7,13 +7,13 @@ export const cn = (...inputs: ClassValue[]): string => {
 
 /**
  * Formula to calculate the maximum number of nuts that can be transported into town
- * @param nutsInKg N - the pile contains N kg of nuts
  * @param kmPerTrip D - the town is D km away from the pile
- * @param carryCapacityInKg C - The cart can carry at most C kg of nuts
+ * @param nutsInKg N - the pile contains N kg of nuts
  * @param nutsPerKmInKg F - the horse consumes F kg of nuts per km traveled
+ * @param carryCapacityInKg C - The cart can carry at most C kg of nuts
  * @return X -the maximum number of nuts that can be transported
  */
-export const getMaxNuts = (nutsInKg: number, kmPerTrip: number, carryCapacityInKg: number, nutsPerKmInKg: number): number => {
+export const getMaxNuts = (kmPerTrip: number, nutsInKg: number, nutsPerKmInKg: number, carryCapacityInKg: number): number => {
   // If we can carry them all, do so
   if (nutsInKg <= carryCapacityInKg) {
     return Math.max((nutsInKg - kmPerTrip * nutsPerKmInKg), 0);
@@ -30,5 +30,5 @@ export const getMaxNuts = (nutsInKg: number, kmPerTrip: number, carryCapacityInK
     return nutsInKg - kmPerTrip * costPerKm;
   }
 
-  return getMaxNuts(remainingNutsInKg, kmPerTrip - traveled, carryCapacityInKg, nutsPerKmInKg);
+  return getMaxNuts(kmPerTrip - traveled, remainingNutsInKg, nutsPerKmInKg, carryCapacityInKg);
 }

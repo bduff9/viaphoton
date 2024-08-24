@@ -63,8 +63,8 @@ const Home: FC = () => {
             <TableRow>
               <TableHead>D</TableHead>
               <TableHead>N</TableHead>
-              <TableHead>C</TableHead>
               <TableHead>F</TableHead>
+              <TableHead>C</TableHead>
               <TableHead>Result</TableHead>
             </TableRow>
           </TableHeader>
