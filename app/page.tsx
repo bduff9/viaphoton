@@ -3,7 +3,9 @@
 import { calculateFromInput } from "@/actions/calculate";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
+import { Nut } from "lucide-react";
 import { FC } from "react";
 import { useServerAction } from "zsa-react";
 
@@ -13,8 +15,7 @@ const Home: FC = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="w-full max-w-5xl items-center justify-between flex-col lg:flex">
-        <h1 className="font-bold text-5xl mb-4">viaPhoton</h1>
-
+        <h1 className="font-bold text-5xl mb-4">viaPhoton <Nut className="inline-block h-16 w-16" /></h1>
         <p>A pile of nuts is in an oasis, across a desert from a town. The pile contains 'N' kg of nuts, and
         the town is 'D' kilometers away from the pile.</p>
         <p>The goal of this problem is to write a program that will compute 'X', the maximum amount of nuts that can be
@@ -47,37 +48,38 @@ const Home: FC = () => {
 
             form.reset()
           }}>
-          <div>
-            <Label htmlFor="input">Input in D,N,F,C format, one per line</Label>
+          <div className="text-center">
+            <Label className="font-bold" htmlFor="input">Input in D,N,F,C format, one per line</Label>
             <Textarea name="input" />
-            <Button disabled={isPending} type="submit">
+            <Button className="mt-2" disabled={isPending} type="submit">
               {isPending ? "Calculating..." : "Calculate"}
             </Button>
           </div>
         </form>
 
-        {data && <table>
-          <thead>
-            <tr>
-              <th>D</th>
-              <th>N</th>
-              <th>C</th>
-              <th>F</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, i) => (
-              <tr key={`result-${i}`}>
-                <td>{row[0]}</td>
-                <td>{row[1]}</td>
-                <td>{row[2]}</td>
-                <td>{row[3]}</td>
-                <td>{row[4].toFixed(2)}</td>
-              </tr>
+        {data && <Table>
+          <TableCaption>Results</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>D</TableHead>
+              <TableHead>N</TableHead>
+              <TableHead>C</TableHead>
+              <TableHead>F</TableHead>
+              <TableHead>Result</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.map((row) => (
+              <TableRow key={`result-${row.toString()}`}>
+                <TableCell>{row[0]}</TableCell>
+                <TableCell>{row[1]}</TableCell>
+                <TableCell>{row[2]}</TableCell>
+                <TableCell>{row[3]}</TableCell>
+                <TableCell className="font-semibold">{row[4].toFixed(2)}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>}
+          </TableBody>
+        </Table>}
       </div>
     </main>
   );
